@@ -1,9 +1,9 @@
 function mostrarArchivos(archivos) {
     const listaArchivos = document.getElementById('main');
     archivos.forEach((archivo) => {
-      const listItem = document.createElement('li');
-      listItem.textContent = archivo;
-      listaArchivos.appendChild(listItem);
+        const listItem = document.createElement('li');
+        listItem.textContent = archivo;
+        listaArchivos.appendChild(listItem);
     });
   }
 
