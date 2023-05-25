@@ -3,7 +3,7 @@ const path = require('path')
 const express = require('express')
 const bp = require('body-parser')
 const MarkdownIt = require('markdown-it'),
-	md = new MarkdownIt();
+  md = new MarkdownIt();
 const app = express()
 
 app.use(express.static('pub'))
@@ -37,19 +37,39 @@ app.get('/listarArchivos', (request, response) => {
       response.end(JSON.stringify(listaArchivos));
     }
   });
-  });
+});
 
-  app.get('/verArchivos/:nombreArchivo', (request, response) => {
-    const nombreArchivo = request.params.nombreArchivo;
-    const rutaArchivo = 'priv/' + nombreArchivo;
-    fs.readFile(rutaArchivo, 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-        response.status(500).json({ error: 'Error' });
-      } else {
-        const htmlText = md.render(data);
-        response.setHeader('Content-Type', 'text/html');
-        response.send(htmlText);
-      }
-    });
+app.get('/verArchivos/:nombreArchivo', (request, response) => {
+  const nombreArchivo = request.params.nombreArchivo;
+  const rutaArchivo = 'priv/' + nombreArchivo;
+  fs.readFile(rutaArchivo, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      response.status(500).json({ 
+        error: 'Error' 
+      });
+    } else {
+      const htmlText = md.render(data);
+      response.setHeader('Content-Type', 'text/html');
+      response.send(htmlText);
+    }
   });
+});
+
+app.post('/crearArchivo', (request, response) => {
+  const contenido = request.body.contenido;
+  const nombreArchivo = request.body.nombreArchivo;
+  const rutaArchivo = path.join(__dirname, 'priv', nombreArchivo)
+  fs.writeFile(rutaArchivo, contenido, 'utf8', err => {
+    if (err) {
+      console.error(err);
+      response.status(500).json({
+        error: 'Error al crear el archivo'
+      });
+    } else {
+      response.status(200).json({
+        mensaje: 'Archivo creado correctamente'
+      });
+    }
+  });
+});
