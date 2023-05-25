@@ -65,6 +65,8 @@
 ## SOLUCIÓN DE LOS EJERCICIOS PROPUESTOS
 - Para la resolución del segundo laboratorio se creó el siguiente repositoiro en GitHub, en el que subió los archivos index.html y Ejercicios.js:
 https://github.com/LuisArocutipa/pwebLab02
+- Link del video de demostración de funcionamiento:
+https://flip.com/s/5EuoQ7VkeWU_
 - Para la solución de este problema se instaló en primer lugar la biblioteca en javascript Markdown-It, y se usó para analizar y renderizar el lenguaje marcado Markdown en HTML, lo que nos permitió convertir texto escrito en Markdown a HTML de manera eficiente.
 - Luego, se creó el archivo index.html dentro de una carpeta pub, en el cual se enlazó a un archivo javascript posteriormente creado funciones.js. En la parte de body se puso una barra de navegación para poder llamar a las funciones que se crearon para listar archivos y crear archivos. Finalmente, se creó un div en el cual iba a ir todo el contenido que se mostrara cada vez que se llamara a una función.
 - En el archivo que usa Node JS (index.js), se creó el código para iniciar conexión con el servidor y se le indicó la ruta del archivo index.html. Luego se crearón las demás funcionalidades:  
