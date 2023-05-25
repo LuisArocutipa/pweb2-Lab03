@@ -21,16 +21,35 @@ app.get('/', (request, response) => {
 });
 
 app.get('/listarArchivos', (request, response) => {
-	fs.readdir('priv', (error, archivos) => {
-		if (error) {
-			console.error(error);
-			response.status(500).json({
-                error: 'Error'
-            });
-			return;
-		}
-		response.json({
-            archivos
-        });
-	});
+  const directorioArchivos = './priv/';
+  fs.readdir(directorioArchivos, (err, archivos) => {
+    if (err) {
+      console.error(err);
+      response.status(500).json({ 
+        error: 'Error'
+      });
+    } else {
+      const listaArchivos = archivos.map(archivo => ({
+        nombre: archivo,
+        abrirFuncion: `abrirArchivo('${archivo}')`
+      }));
+      response.setHeader('Content-Type', 'application/json');
+      response.end(JSON.stringify(listaArchivos));
+    }
+  });
+  });
+
+  app.get('/verArchivos/:nombreArchivo', (request, response) => {
+    const nombreArchivo = request.params.nombreArchivo;
+    const rutaArchivo = 'priv/' + nombreArchivo;
+    fs.readFile(rutaArchivo, 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        response.status(500).json({ error: 'Error' });
+      } else {
+        const htmlText = md.render(data);
+        response.setHeader('Content-Type', 'text/html');
+        response.send(htmlText);
+      }
+    });
   });

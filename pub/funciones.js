@@ -1,17 +1,34 @@
-function mostrarArchivos(archivos) {
-    const listaArchivos = document.getElementById('main');
-    archivos.forEach((archivo) => {
-        const listItem = document.createElement('li');
-        listItem.textContent = archivo;
-        listaArchivos.appendChild(listItem);
-    });
+function listarArchivos() {
+    document.getElementById('main').innerHTML = "";
+    const url = 'http://localhost:3000/listarArchivos';
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const listaElement = document.querySelector('#main');
+  
+        data.forEach(archivo => {
+          const listItem = document.createElement('li');
+          listItem.innerText = archivo.nombre;
+          listItem.setAttribute('onclick', archivo.abrirFuncion);
+          listaElement.appendChild(listItem);
+          console.log(listItem)
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
-function verArchivos(){
-    const url = 'http://localhost:3000/listarArchivos'
-    fetch(url).then(
-        response => response.json()
-    ).then(
-        data => mostrarArchivos(data.archivos)
-    )
+function abrirArchivo(nombreArchivo) {
+    const url = 'http://localhost:3000/verArchivos/' + nombreArchivo;
+    console.log(url)
+    fetch(url)
+    .then(response => response.text())
+    .then(data => {
+        document.querySelector('#main').innerHTML = data;
+    })
+    .catch(error => {
+        console.error(error);
+        document.querySelector('#main').innerText = 'Error';
+    });
 }
