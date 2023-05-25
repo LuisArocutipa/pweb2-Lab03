@@ -1,6 +1,9 @@
 function listarArchivos() {
     document.getElementById('main').innerHTML = "";
     const url = 'http://localhost:3000/listarArchivos';
+    const titulo = document.createElement('h2');
+    titulo.innerText = "Lista de archivos:";
+    document.querySelector('#main').appendChild(titulo);
     fetch(url)
       .then(response => response.json())
       .then(data => {
