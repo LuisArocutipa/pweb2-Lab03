@@ -48,6 +48,9 @@ body {
     list-style-type: circle;
     color: white;
 }
+.info input, button, textarea {
+    margin-block-end: 15px;
+}
 @media screen and (max-width: 400px) {
     .nav p {
         float: none;

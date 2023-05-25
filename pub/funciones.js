@@ -40,7 +40,7 @@ function crearArchivos() {
       <form id="formularioCrearArchivo">
         <textarea id="contenidoArchivo" rows="10" cols="50"></textarea>
         <br>
-        <input type="text" id="nombreArchivo" placeholder="Nombre del archivo.txt">
+        <input type="text" id="nombreArchivo">
         <br>
         <button type="submit">Crear Archivo</button>
       </form>
